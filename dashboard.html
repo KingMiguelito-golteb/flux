@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux — Dashboard</title>
+    <meta name="description" content="Flux feedback dashboard — Kanban board for managing client feedback with drag-and-drop, comments, and analytics.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Flux — Feedback Dashboard">
+    <meta property="og:description" content="Kanban-style feedback management with role-based access, threaded comments, and analytics.">
+    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
+    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/dashboard.html">
+    <meta property="og:type" content="website">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="flux-header" id="appHeader">
+    <div class="flux-header-left">
+        <a href="dashboard.html" class="flux-logo">
+            <i class="fas fa-bolt"></i>
+            <span>Flux</span>
+        </a>
+        <nav class="flux-nav" id="mainNav">
+            <a href="dashboard.html" class="flux-nav-link active">
+                <i class="fas fa-columns"></i> Board
+            </a>
+            <!-- RBAC: Projects link is agency-only -->
+            <a href="projects.html" class="flux-nav-link agency-only">
+                <i class="fas fa-folder-open"></i> Projects
+            </a>
+            <a href="account.html" class="flux-nav-link">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+
+        <div class="project-selector" id="projectSelector">
+            <i class="fas fa-folder-open"></i>
+            <span id="currentProject">Loading…</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+
+        <!-- RBAC: Role badge shown in header -->
+        <div id="roleBadgeContainer"></div>
+    </div>
+
+    <div class="header-center">
+        <div class="search-bar" id="searchBar">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search feedback… (F)" autocomplete="off">
+            <span class="search-shortcut" id="searchShortcutHint">F</span>
+            <button class="search-clear hidden" id="searchClear" title="Clear search">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="flux-header-right">
+        <!-- RBAC: Filters are available to both roles -->
+        <div class="filter-group" id="filterGroup">
+            <div class="filter-dropdown" id="filterType">
+                <button class="filter-btn" id="filterTypeBtn">
+                    <i class="fas fa-tag"></i><span>Type</span><i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-menu hidden" id="filterTypeMenu">
+                    <div class="filter-menu-header">Filter by Type</div>
+                    <label class="filter-option"><input type="checkbox" value="design" checked> Design</label>
+                    <label class="filter-option"><input type="checkbox" value="technical" checked> Technical</label>
+                    <label class="filter-option"><input type="checkbox" value="copy" checked> Copy/Text</label>
+                    <label class="filter-option"><input type="checkbox" value="bug" checked> Bug Report</label>
+                    <div class="filter-menu-actions">
+                        <button class="filter-action" data-action="all">All</button>
+                        <button class="filter-action" data-action="none">None</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-dropdown" id="filterPriority">
+                <button class="filter-btn" id="filterPriorityBtn">
+                    <i class="fas fa-flag"></i><span>Priority</span><i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-menu hidden" id="filterPriorityMenu">
+                    <div class="filter-menu-header">Filter by Priority</div>
+                    <label class="filter-option"><input type="checkbox" value="urgent" checked> Urgent</label>
+                    <label class="filter-option"><input type="checkbox" value="high" checked> High</label>
+                    <label class="filter-option"><input type="checkbox" value="normal" checked> Normal</label>
+                    <label class="filter-option"><input type="checkbox" value="low" checked> Low</label>
+                    <div class="filter-menu-actions">
+                        <button class="filter-action" data-action="all">All</button>
+                        <button class="filter-action" data-action="none">None</button>
+                    </div>
+                </div>
+            </div>
+            <button class="filter-reset hidden" id="filterReset" title="Reset all filters">
+                <i class="fas fa-times-circle"></i><span>Reset</span>
+            </button>
+        </div>
+
+        <!-- Notification bell -->
+        <div class="flux-notif-wrapper" id="notifWrapper">
+            <button class="flux-icon-btn" id="notifBell" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="flux-notif-badge hidden" id="notifBadge">0</span>
+            </button>
+            <div class="flux-notif-dropdown hidden" id="notifDropdown">
+                <div class="flux-notif-header">
+                    <h3>Notifications</h3>
+                    <button class="flux-notif-mark-all" id="markAllRead">Mark all read</button>
+                </div>
+                <div class="flux-notif-list" id="notifList"></div>
+                <div class="flux-notif-empty hidden" id="notifEmpty">
+                    <i class="fas fa-bell-slash"></i><p>No notifications</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RBAC: View mode switch — agency-only class on the Agency button -->
+        <div class="view-switch" id="viewSwitch">
+            <button class="view-btn active" data-view="client" id="clientViewBtn">
+                <i class="fas fa-user"></i> Client View
+            </button>
+            <!-- RBAC: Agency view button hidden for client role -->
+            <button class="view-btn agency-only" data-view="agency" id="agencyViewBtn">
+                <i class="fas fa-building"></i> Agency View
+            </button>
+        </div>
+
+        <!-- User menu -->
+        <div class="flux-user-menu" id="userMenu">
+            <button class="flux-user-btn" id="userMenuBtn">
+                <div class="flux-avatar" id="headerAvatar">SC</div>
+                <span class="flux-user-name" id="headerUserName">Sarah Chen</span>
+                <i class="fas fa-chevron-down flux-user-chevron"></i>
+            </button>
+            <div class="flux-user-dropdown hidden" id="userDropdown">
+                <div class="flux-user-dropdown-header">
+                    <div class="flux-user-dropdown-name" id="dropdownName">Sarah Chen</div>
+                    <div class="flux-user-dropdown-email" id="dropdownEmail">sarah@techco.com</div>
+                </div>
+                <a href="account.html" class="flux-user-dropdown-link">
+                    <i class="fas fa-user-circle"></i> My Account
+                </a>
+                <!-- RBAC: Projects link agency-only in dropdown too -->
+                <a href="projects.html" class="flux-user-dropdown-link agency-only">
+                    <i class="fas fa-folder-open"></i> Projects
+                </a>
+                <div class="flux-user-dropdown-divider"></div>
+                <button class="flux-user-dropdown-link danger" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ===== DASHBOARD METRICS ===== -->
+<section class="dashboard-metrics" id="dashboardMetrics">
+    <div class="metric-card">
+        <div class="metric-icon total"><i class="fas fa-comments"></i></div>
+        <div class="metric-data">
+            <span class="metric-value" id="metricTotal">0</span>
+            <span class="metric-label">Total Feedback</span>
+        </div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-icon resolved"><i class="fas fa-check-circle"></i></div>
+        <div class="metric-data">
+            <span class="metric-value" id="metricResolved">0</span>
+            <span class="metric-label">Resolved</span>
+        </div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-icon pending"><i class="fas fa-clock"></i></div>
+        <div class="metric-data">
+            <span class="metric-value" id="metricPending">0</span>
+            <span class="metric-label">Pending</span>
+        </div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-icon files"><i class="fas fa-paperclip"></i></div>
+        <div class="metric-data">
+            <span class="metric-value" id="metricFiles">0</span>
+            <span class="metric-label">Files Attached</span>
+        </div>
+    </div>
+</section>
+<!-- ===== ANALYTICS PANEL (expandable) ===== -->
+<div class="analytics-panel" id="analyticsPanel">
+    <button class="analytics-toggle" id="analyticsToggle">
+        <i class="fas fa-chart-bar"></i>
+        <span>Analytics</span>
+        <i class="fas fa-chevron-down analytics-chevron" id="analyticsChevron"></i>
+    </button>
+    <div class="analytics-content hidden" id="analyticsContent">
+        <div class="analytics-grid">
+            <!-- Resolution Rate -->
+            <div class="analytics-card">
+                <div class="analytics-card-header">
+                    <h4>Resolution Rate</h4>
+                    <span class="analytics-trend up" id="analyticsTrend">
+                        <i class="fas fa-arrow-up"></i> 12%
+                    </span>
+                </div>
+                <div class="analytics-ring-container">
+                    <svg class="analytics-ring" viewBox="0 0 100 100">
+                        <circle class="ring-bg" cx="50" cy="50" r="42" />
+                        <circle class="ring-fill" cx="50" cy="50" r="42"
+                                id="resolutionRing"
+                                stroke-dasharray="264"
+                                stroke-dashoffset="264" />
+                    </svg>
+                    <div class="ring-label" id="resolutionPercent">0%</div>
+                </div>
+                <p class="analytics-sub">of feedback has been resolved</p>
+            </div>
+
+            <!-- Feedback by Type -->
+            <div class="analytics-card">
+                <div class="analytics-card-header">
+                    <h4>Feedback by Type</h4>
+                </div>
+                <div class="analytics-bars" id="feedbackByType">
+                    <!-- rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Feedback by Priority -->
+            <div class="analytics-card">
+                <div class="analytics-card-header">
+                    <h4>By Priority</h4>
+                </div>
+                <div class="analytics-bars" id="feedbackByPriority">
+                    <!-- rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Average Resolution Time -->
+            <div class="analytics-card">
+                <div class="analytics-card-header">
+                    <h4>Avg. Resolution Time</h4>
+                </div>
+                <div class="analytics-big-number" id="avgResolutionTime">
+                    <span class="big-num">—</span>
+                    <span class="big-unit">days</span>
+                </div>
+                <div class="analytics-mini-stats" id="miniStats">
+                    <!-- rendered by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RBAC: Bulk actions bar — entire bar is agency-only -->
+<div class="bulk-actions-bar hidden agency-only" id="bulkActionsBar">
+    <div class="bulk-info">
+        <i class="fas fa-check-square"></i>
+        <span id="bulkCount">0</span> items selected
+    </div>
+    <div class="bulk-btns">
+        <button class="bulk-btn approve" id="bulkApprove"><i class="fas fa-check"></i> Approve</button>
+        <button class="bulk-btn convert" id="bulkConvert"><i class="fas fa-tasks"></i> Convert</button>
+        <button class="bulk-btn delete" id="bulkDelete"><i class="fas fa-trash"></i> Delete</button>
+        <button class="bulk-btn deselect" id="bulkDeselect"><i class="fas fa-times"></i> Deselect</button>
+    </div>
+</div>
+
+<!-- ===== KANBAN BOARD ===== -->
+<main class="kanban-wrapper" id="kanbanWrapper">
+    <div class="kanban-board" id="kanbanBoard">
+        <div class="kanban-column" data-status="new" id="columnNew">
+            <div class="column-header"><div class="column-title"><span class="column-dot new"></span><h2>New Feedback</h2><span class="column-count" id="countNew">0</span></div></div>
+            <div class="column-cards" id="cardsNew"></div>
+        </div>
+        <div class="kanban-column" data-status="review" id="columnReview">
+            <div class="column-header"><div class="column-title"><span class="column-dot review"></span><h2>In Review</h2><span class="column-count" id="countReview">0</span></div></div>
+            <div class="column-cards" id="cardsReview"></div>
+        </div>
+        <div class="kanban-column" data-status="awaiting" id="columnAwaiting">
+            <div class="column-header"><div class="column-title"><span class="column-dot awaiting"></span><h2>Awaiting Client</h2><span class="column-count" id="countAwaiting">0</span></div></div>
+            <div class="column-cards" id="cardsAwaiting"></div>
+        </div>
+        <div class="kanban-column" data-status="approved" id="columnApproved">
+            <div class="column-header"><div class="column-title"><span class="column-dot approved"></span><h2>Approved</h2><span class="column-count" id="countApproved">0</span></div></div>
+            <div class="column-cards" id="cardsApproved"></div>
+        </div>
+    </div>
+</main>
+
+<!-- FAB — Submit feedback (available to BOTH roles) -->
+<button class="fab" id="fabNewFeedback" title="Submit new feedback (N)"><i class="fas fa-plus"></i></button>
+
+<!-- ===== MODAL: Submit Feedback ===== -->
+<div class="modal-overlay hidden" id="modalSubmitFeedback">
+    <div class="modal" role="dialog">
+        <div class="modal-header">
+            <h2><i class="fas fa-paper-plane"></i> Submit Feedback</h2>
+            <button class="modal-close" id="closeSubmitModal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="feedbackForm" novalidate>
+                <div class="form-group">
+                    <label for="feedbackTitle">Title <span class="required">*</span></label>
+                    <input type="text" id="feedbackTitle" placeholder="Brief summary" required maxlength="120">
+                    <span class="char-count"><span id="titleCharCount">0</span>/120</span>
+                </div>
+                <div class="form-group">
+                    <label>Feedback Type <span class="required">*</span></label>
+                    <div class="radio-group" id="feedbackTypeGroup">
+                        <label class="radio-card"><input type="radio" name="feedbackType" value="design"><div class="radio-card-content"><i class="fas fa-palette"></i><span>Design</span></div></label>
+                        <label class="radio-card"><input type="radio" name="feedbackType" value="technical"><div class="radio-card-content"><i class="fas fa-code"></i><span>Technical</span></div></label>
+                        <label class="radio-card"><input type="radio" name="feedbackType" value="copy"><div class="radio-card-content"><i class="fas fa-font"></i><span>Copy/Text</span></div></label>
+                        <label class="radio-card"><input type="radio" name="feedbackType" value="bug"><div class="radio-card-content"><i class="fas fa-bug"></i><span>Bug Report</span></div></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackPriority">Priority</label>
+                    <select id="feedbackPriority"><option value="low">Low</option><option value="normal" selected>Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackDescription">Description <span class="required">*</span></label>
+                    <textarea id="feedbackDescription" rows="4" placeholder="Detailed feedback…" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Attachments</label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop or <span class="file-browse">browse</span></p>
+                        <small>PDF, PNG, JPG, PSD, AI — Max 10MB</small>
+                        <input type="file" id="fileInput" multiple accept=".pdf,.png,.jpg,.jpeg,.psd,.ai" hidden>
+                    </div>
+                    <div class="file-preview-list" id="filePreviewList"></div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="cancelSubmitFeedback">Cancel</button>
+            <button class="btn btn-primary" id="submitFeedback"><i class="fas fa-paper-plane"></i> Submit Feedback</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL: Feedback Detail ===== -->
+<div class="modal-overlay hidden" id="modalFeedbackDetail">
+    <div class="modal modal-large" role="dialog">
+        <div class="modal-header">
+            <h2><i class="fas fa-comment-dots"></i> <span id="detailTitle">Feedback Detail</span></h2>
+            <button class="modal-close" id="closeDetailModal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body detail-body">
+            <div class="detail-left">
+                <div class="detail-meta">
+                    <div class="detail-meta-row"><span class="meta-label">Status</span><span class="status-badge" id="detailStatus">New</span></div>
+                    <div class="detail-meta-row"><span class="meta-label">Type</span><span class="type-tag" id="detailType">Design</span></div>
+                    <div class="detail-meta-row"><span class="meta-label">Priority</span><span class="priority-badge" id="detailPriority">Normal</span></div>
+                    <div class="detail-meta-row"><span class="meta-label">Client</span><span id="detailClient">TechCo</span></div>
+                    <div class="detail-meta-row"><span class="meta-label">Submitted</span><span id="detailTimestamp">—</span></div>
+                </div>
+
+                <!-- RBAC: Status changer — agency-only -->
+                <div class="detail-status-changer agency-only" id="detailStatusChanger">
+                    <label class="flux-form-label">Change Status</label>
+                    <select class="flux-form-select" id="detailStatusSelect">
+                        <option value="new">New Feedback</option>
+                        <option value="review">In Review</option>
+                        <option value="awaiting">Awaiting Client</option>
+                        <option value="approved">Approved</option>
+                    </select>
+                </div>
+
+                <div class="detail-description"><h4>Description</h4><p id="detailDescription">—</p></div>
+                <div class="detail-files" id="detailFilesSection"><h4>Attachments</h4><div class="detail-file-list" id="detailFileList"></div></div>
+                <div class="detail-history"><h4><i class="fas fa-history"></i> Status History</h4><div class="history-timeline" id="detailHistory"></div></div>
+            </div>
+            <div class="detail-right">
+                <div class="comments-section">
+                    <h4><i class="fas fa-comments"></i> Comments</h4>
+                    <div class="comments-thread" id="commentsThread"></div>
+                    <div class="comment-input-area">
+                        <div class="comment-input-row">
+                            <div class="comment-avatar client" id="commentAvatar">SC</div>
+                            <textarea id="commentInput" placeholder="Write a comment…" rows="3"></textarea>
+                        </div>
+                        <div class="comment-actions">
+                            <button class="btn btn-sm btn-primary" id="postComment"><i class="fas fa-paper-plane"></i> Post Comment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RBAC: Convert Task modal — agency-only (entire modal) -->
+<div class="modal-overlay hidden agency-only" id="modalConvertTask">
+    <div class="modal" role="dialog">
+        <div class="modal-header">
+            <h2><i class="fas fa-tasks"></i> Convert to Task</h2>
+            <button class="modal-close" id="closeConvertModal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="convertTaskForm" novalidate>
+                <div class="form-group"><label for="taskTitle">Task Title <span class="required">*</span></label><input type="text" id="taskTitle" placeholder="Task title" required></div>
+                <div class="form-group"><label for="taskAssignee">Assign To</label><select id="taskAssignee"><option value="">— Select —</option><option value="alex">Alex (Designer)</option><option value="jordan">Jordan (Developer)</option><option value="sam">Sam (PM)</option><option value="taylor">Taylor (QA)</option></select></div>
+                <div class="form-row">
+                    <div class="form-group"><label for="taskDeadline">Deadline</label><input type="date" id="taskDeadline"></div>
+                    <div class="form-group"><label for="taskHours">Est. Hours</label><input type="number" id="taskHours" min="0" step="0.5" placeholder="0"></div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="cancelConvertTask">Cancel</button>
+            <button class="btn btn-primary" id="confirmConvertTask"><i class="fas fa-check"></i> Create Task</button>
+        </div>
+    </div>
+</div>
+
+<!-- Shortcuts help -->
+<div class="shortcuts-help hidden" id="shortcutsHelp">
+    <div class="shortcuts-content">
+        <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <div class="shortcut-row"><kbd>N</kbd> New feedback</div>
+        <div class="shortcut-row"><kbd>F</kbd> Focus search</div>
+        <div class="shortcut-row"><kbd>Esc</kbd> Close modal</div>
+        <div class="shortcut-row"><kbd>?</kbd> Toggle shortcuts</div>
+        <!-- RBAC: These shortcuts only shown to agency -->
+        <div class="shortcut-row agency-only"><kbd>1</kbd> Client view</div>
+        <div class="shortcut-row agency-only"><kbd>2</kbd> Agency view</div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="flux-toast-container" id="toastContainer"></div>
+
+<!-- Scripts -->
+<script src="js/ui/splash.js"></script>
+<script src="js/core/storage.js" defer></script>
+<script src="js/core/api.js" defer></script>
+<script src="js/ui/toast.js" defer></script>
+<script src="js/ui/nav.js" defer></script>
+<script src="js/ui/notifications.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

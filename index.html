@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux — Feedback Portal</title>
+    <meta name="description" content="Flux — A production-style SaaS client-agency feedback portal built with vanilla JavaScript.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Flux — Client-Agency Feedback Portal">
+    <meta property="og:description" content="Production-style SaaS feedback management platform built with vanilla JS, HTML, and CSS. Zero dependencies.">
+    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
+    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Flux — Client-Agency Feedback Portal">
+    <meta name="twitter:description" content="SaaS feedback portal with Kanban, RBAC, analytics — zero dependencies.">
+    <meta name="twitter:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
+
+    <script>
+        (function() {
+            try {
+                var session = localStorage.getItem('flux_session');
+                if (session) {
+                    window.location.replace('dashboard.html');
+                } else {
+                    window.location.replace('landing.html');
+                }
+            } catch(e) {
+                window.location.replace('landing.html');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>

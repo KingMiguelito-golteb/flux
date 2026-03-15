@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux — Sign Up</title>
+    <meta name="description" content="Create your Flux account and start managing client feedback.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Flux — Create Account">
+    <meta property="og:description" content="Join Flux and streamline your agency's client feedback workflow.">
+    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
+    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/signup.html">
+    <meta property="og:type" content="website">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="auth-page">
+    <!-- ===== LEFT BRAND PANEL ===== -->
+    <div class="auth-brand">
+        <div class="auth-brand-logo">
+            <i class="fas fa-bolt"></i>
+            <span>Flux</span>
+        </div>
+        <p class="auth-brand-tagline">
+            Join thousands of agencies managing client feedback seamlessly.
+        </p>
+        <div class="auth-brand-features">
+            <div class="auth-brand-feature">
+                <i class="fas fa-rocket"></i>
+                <span>Get started in 60 seconds</span>
+            </div>
+            <div class="auth-brand-feature">
+                <i class="fas fa-lock"></i>
+                <span>Enterprise-grade security</span>
+            </div>
+            <div class="auth-brand-feature">
+                <i class="fas fa-users"></i>
+                <span>Unlimited team members</span>
+            </div>
+            <div class="auth-brand-feature">
+                <i class="fas fa-credit-card"></i>
+                <span>Free 14-day trial</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== RIGHT FORM PANEL ===== -->
+    <div class="auth-form-panel">
+        <div class="auth-form-container">
+            <div class="auth-form-header">
+                <h1>Create your account</h1>
+                <p>Already have an account? <a href="login.html">Sign in</a></p>
+            </div>
+
+            <button class="auth-social-btn" id="googleSignUp">
+                <i class="fab fa-google"></i>
+                Continue with Google
+            </button>
+
+            <div class="auth-divider">or sign up with email</div>
+
+            <form id="signupForm" novalidate>
+                <div class="flux-form-row">
+                    <div class="flux-form-group">
+                        <label class="flux-form-label" for="signupFirstName">
+                            First name <span class="required">*</span>
+                        </label>
+                        <input
+                            class="flux-form-input"
+                            type="text"
+                            id="signupFirstName"
+                            placeholder="Sarah"
+                            required
+                        >
+                    </div>
+                    <div class="flux-form-group">
+                        <label class="flux-form-label" for="signupLastName">
+                            Last name <span class="required">*</span>
+                        </label>
+                        <input
+                            class="flux-form-input"
+                            type="text"
+                            id="signupLastName"
+                            placeholder="Chen"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="flux-form-group">
+                    <label class="flux-form-label" for="signupEmail">
+                        Work email <span class="required">*</span>
+                    </label>
+                    <input
+                        class="flux-form-input"
+                        type="email"
+                        id="signupEmail"
+                        placeholder="sarah@agency.com"
+                        required
+                        autocomplete="email"
+                    >
+                    <div class="flux-form-error" id="signupEmailError">Please enter a valid email</div>
+                </div>
+
+                <div class="flux-form-group">
+                    <label class="flux-form-label" for="signupOrg">
+                        Organization name
+                    </label>
+                    <input
+                        class="flux-form-input"
+                        type="text"
+                        id="signupOrg"
+                        placeholder="Acme Agency"
+                    >
+                </div>
+
+                <div class="flux-form-group">
+                    <label class="flux-form-label">
+                        I am a… <span class="required">*</span>
+                    </label>
+                    <div class="flux-form-row" style="gap: 10px;">
+                        <label class="auth-role-card">
+                            <input type="radio" name="signupRole" value="client" checked>
+                            <div class="auth-role-content">
+                                <i class="fas fa-user"></i>
+                                <span>Client</span>
+                            </div>
+                        </label>
+                        <label class="auth-role-card">
+                            <input type="radio" name="signupRole" value="agency">
+                            <div class="auth-role-content">
+                                <i class="fas fa-building"></i>
+                                <span>Agency</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flux-form-group">
+                    <label class="flux-form-label" for="signupPassword">
+                        Password <span class="required">*</span>
+                    </label>
+                    <div class="password-input-wrapper">
+                        <input
+                            class="flux-form-input"
+                            type="password"
+                            id="signupPassword"
+                            placeholder="Create a strong password"
+                            required
+                            autocomplete="new-password"
+                        >
+                        <button type="button" class="password-toggle" id="signupPasswordToggle" aria-label="Show password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="password-strength-bar">
+                            <div class="password-strength-fill" id="passwordStrengthFill"></div>
+                        </div>
+                        <span class="password-strength-text" id="passwordStrengthText"></span>
+                    </div>
+                    <div class="flux-form-error" id="signupPasswordError">Password must be at least 8 characters</div>
+                </div>
+
+                <div style="margin-top: 8px;">
+                    <label class="auth-checkbox">
+                        <input type="checkbox" id="termsAgree" required>
+                        I agree to the <a href="#" style="color: var(--primary-600);">Terms of Service</a> and <a href="#" style="color: var(--primary-600);">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="flux-btn flux-btn-primary flux-btn-lg flux-btn-block" id="signupSubmit">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="flux-toast-container" id="toastContainer"></div>
+
+<script src="js/core/storage.js"></script>
+<script src="js/core/api.js"></script>
+<script src="js/ui/toast.js"></script>
+<script src="js/pages/signup.js"></script>
+
+<style>
+    /* Role selector cards */
+    .auth-role-card {
+        cursor: pointer;
+        flex: 1;
+    }
+    .auth-role-card input { display: none; }
+    .auth-role-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        border: 2px solid var(--gray-200);
+        border-radius: var(--radius-md);
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--gray-500);
+        transition: all var(--transition-fast);
+    }
+    .auth-role-card input:checked + .auth-role-content {
+        border-color: var(--primary-500);
+        background: var(--primary-50);
+        color: var(--primary-600);
+    }
+    .auth-role-content:hover {
+        border-color: var(--gray-300);
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux — Account Settings</title>
+    <meta name="description" content="Manage your Flux account settings, profile, security, and notification preferences.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Flux — Account Settings">
+    <meta property="og:description" content="Manage your profile, security, and preferences in Flux.">
+    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/account.png">
+    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/account.html">
+    <meta property="og:type" content="website">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ===== SHARED HEADER ===== -->
+<header class="flux-header" id="appHeader">
+    <div class="flux-header-left">
+        <a href="dashboard.html" class="flux-logo">
+            <i class="fas fa-bolt"></i>
+            <span>Flux</span>
+        </a>
+        <nav class="flux-nav" id="mainNav">
+            <a href="dashboard.html" class="flux-nav-link">
+                <i class="fas fa-columns"></i> Board
+            </a>
+            <a href="projects.html" class="flux-nav-link">
+                <i class="fas fa-folder-open"></i> Projects
+            </a>
+            <a href="account.html" class="flux-nav-link active">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </div>
+    <div class="flux-header-right">
+        <!-- Notification bell -->
+        <div class="flux-notif-wrapper" id="notifWrapper">
+            <button class="flux-icon-btn" id="notifBell" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="flux-notif-badge hidden" id="notifBadge">0</span>
+            </button>
+            <div class="flux-notif-dropdown hidden" id="notifDropdown">
+                <div class="flux-notif-header">
+                    <h3>Notifications</h3>
+                    <button class="flux-notif-mark-all" id="markAllRead">Mark all read</button>
+                </div>
+                <div class="flux-notif-list" id="notifList"></div>
+                <div class="flux-notif-empty hidden" id="notifEmpty">
+                    <i class="fas fa-bell-slash"></i>
+                    <p>No notifications</p>
+                </div>
+            </div>
+        </div>
+        <!-- User menu -->
+        <div class="flux-user-menu" id="userMenu">
+            <button class="flux-user-btn" id="userMenuBtn">
+                <div class="flux-avatar" id="headerAvatar">SC</div>
+                <span class="flux-user-name" id="headerUserName">Sarah Chen</span>
+                <i class="fas fa-chevron-down flux-user-chevron"></i>
+            </button>
+            <div class="flux-user-dropdown hidden" id="userDropdown">
+                <div class="flux-user-dropdown-header">
+                    <div class="flux-user-dropdown-name" id="dropdownName">Sarah Chen</div>
+                    <div class="flux-user-dropdown-email" id="dropdownEmail">sarah@techco.com</div>
+                </div>
+                <a href="account.html" class="flux-user-dropdown-link">
+                    <i class="fas fa-user-circle"></i> My Account
+                </a>
+                <a href="projects.html" class="flux-user-dropdown-link">
+                    <i class="fas fa-folder-open"></i> Projects
+                </a>
+                <div class="flux-user-dropdown-divider"></div>
+                <button class="flux-user-dropdown-link danger" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ===== PAGE CONTENT ===== -->
+<div class="flux-page">
+    <div class="flux-page-header">
+        <h1>Account Settings</h1>
+        <p>Manage your profile, security, and preferences</p>
+    </div>
+
+    <div class="flux-page-content">
+        <div class="account-layout">
+            <!-- Sidebar -->
+            <aside class="account-sidebar">
+                <nav class="account-sidebar-nav">
+                    <button class="account-sidebar-link active" data-section="profile">
+                        <i class="fas fa-user"></i> Profile
+                    </button>
+                    <button class="account-sidebar-link" data-section="security">
+                        <i class="fas fa-shield-alt"></i> Security
+                    </button>
+                    <button class="account-sidebar-link" data-section="notifications">
+                        <i class="fas fa-bell"></i> Notifications
+                    </button>
+                    <button class="account-sidebar-link" data-section="organization">
+                        <i class="fas fa-building"></i> Organization
+                    </button>
+                    <button class="account-sidebar-link" data-section="danger">
+                        <i class="fas fa-exclamation-triangle"></i> Danger Zone
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Sections -->
+            <div class="account-sections" id="accountSections">
+
+                <!-- PROFILE SECTION -->
+                <section class="account-section flux-card" id="sectionProfile" data-section="profile">
+                    <div class="flux-card-header">
+                        <h3><i class="fas fa-user"></i> Profile Information</h3>
+                        <p>Update your personal details and avatar</p>
+                    </div>
+                    <div class="flux-card-body">
+                        <div class="account-avatar-area">
+                            <div class="account-avatar-preview" id="avatarPreview">SC</div>
+                            <div class="account-avatar-actions">
+                                <button class="flux-btn flux-btn-secondary flux-btn-sm" id="uploadAvatarBtn">
+                                    <i class="fas fa-camera"></i> Upload Photo
+                                </button>
+                                <button class="flux-btn flux-btn-sm" id="removeAvatarBtn" style="background:none;color:var(--gray-400);border:none;padding:4px 8px;font-size:0.78rem;">
+                                    Remove
+                                </button>
+                                <input type="file" id="avatarInput" accept="image/*" hidden>
+                                <p>JPG, PNG. Max 2MB.</p>
+                            </div>
+                        </div>
+
+                        <form id="profileForm" novalidate>
+                            <div class="flux-form-row">
+                                <div class="flux-form-group">
+                                    <label class="flux-form-label" for="profileFirstName">First name</label>
+                                    <input class="flux-form-input" type="text" id="profileFirstName" value="Sarah">
+                                </div>
+                                <div class="flux-form-group">
+                                    <label class="flux-form-label" for="profileLastName">Last name</label>
+                                    <input class="flux-form-input" type="text" id="profileLastName" value="Chen">
+                                </div>
+                            </div>
+                            <div class="flux-form-group">
+                                <label class="flux-form-label" for="profileEmail">Email</label>
+                                <input class="flux-form-input" type="email" id="profileEmail" value="sarah@techco.com">
+                            </div>
+                            <div class="flux-form-group">
+                                <label class="flux-form-label" for="profileJobTitle">Job title</label>
+                                <input class="flux-form-input" type="text" id="profileJobTitle" placeholder="e.g. Product Manager">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="flux-card-footer">
+                        <button class="flux-btn flux-btn-secondary" id="cancelProfile">Cancel</button>
+                        <button class="flux-btn flux-btn-primary" id="saveProfile">
+                            <i class="fas fa-check"></i> Save Changes
+                        </button>
+                    </div>
+                </section>
+
+                <!-- SECURITY SECTION -->
+                <section class="account-section flux-card" id="sectionSecurity" data-section="security">
+                    <div class="flux-card-header">
+                        <h3><i class="fas fa-shield-alt"></i> Security</h3>
+                        <p>Manage your password and account security</p>
+                    </div>
+                    <div class="flux-card-body">
+                        <form id="securityForm" novalidate>
+                            <div class="flux-form-group">
+                                <label class="flux-form-label" for="currentPassword">Current password</label>
+                                <div class="password-input-wrapper">
+                                    <input class="flux-form-input" type="password" id="currentPassword" placeholder="Enter current password">
+                                    <button type="button" class="password-toggle" data-target="currentPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flux-form-row">
+                                <div class="flux-form-group">
+                                    <label class="flux-form-label" for="newPassword">New password</label>
+                                    <div class="password-input-wrapper">
+                                        <input class="flux-form-input" type="password" id="newPassword" placeholder="New password">
+                                        <button type="button" class="password-toggle" data-target="newPassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flux-form-group">
+                                    <label class="flux-form-label" for="confirmPassword">Confirm password</label>
+                                    <div class="password-input-wrapper">
+                                        <input class="flux-form-input" type="password" id="confirmPassword" placeholder="Confirm password">
+                                        <button type="button" class="password-toggle" data-target="confirmPassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flux-form-hint">Password must be at least 8 characters with one number and one special character.</div>
+                        </form>
+                    </div>
+                    <div class="flux-card-footer">
+                        <button class="flux-btn flux-btn-primary" id="savePassword">
+                            <i class="fas fa-lock"></i> Update Password
+                        </button>
+                    </div>
+                </section>
+
+                <!-- NOTIFICATION SETTINGS SECTION -->
+                <section class="account-section flux-card" id="sectionNotifications" data-section="notifications">
+                    <div class="flux-card-header">
+                        <h3><i class="fas fa-bell"></i> Notification Preferences</h3>
+                        <p>Choose how and when you receive notifications</p>
+                    </div>
+                    <div class="flux-card-body">
+                        <div class="notification-setting-row">
+                            <div class="notification-setting-info">
+                                <h4>Email notifications</h4>
+                                <p>Receive feedback updates via email</p>
+                            </div>
+                            <label class="flux-toggle">
+                                <input type="checkbox" id="notifEmail" checked>
+                                <span class="flux-toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-setting-row">
+                            <div class="notification-setting-info">
+                                <h4>In-app notifications</h4>
+                                <p>Show notifications in the bell icon dropdown</p>
+                            </div>
+                            <label class="flux-toggle">
+                                <input type="checkbox" id="notifInApp" checked>
+                                <span class="flux-toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-setting-row">
+                            <div class="notification-setting-info">
+                                <h4>Comment replies</h4>
+                                <p>Get notified when someone replies to your comments</p>
+                            </div>
+                            <label class="flux-toggle">
+                                <input type="checkbox" id="notifReplies" checked>
+                                <span class="flux-toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-setting-row">
+                            <div class="notification-setting-info">
+                                <h4>Status changes</h4>
+                                <p>Notify when feedback changes status</p>
+                            </div>
+                            <label class="flux-toggle">
+                                <input type="checkbox" id="notifStatus" checked>
+                                <span class="flux-toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-setting-row">
+                            <div class="notification-setting-info">
+                                <h4>Weekly digest</h4>
+                                <p>Receive a summary of activity every Monday</p>
+                            </div>
+                            <label class="flux-toggle">
+                                <input type="checkbox" id="notifDigest">
+                                <span class="flux-toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flux-card-footer">
+                        <button class="flux-btn flux-btn-primary" id="saveNotifications">
+                            <i class="fas fa-check"></i> Save Preferences
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ORGANIZATION SECTION -->
+                <section class="account-section flux-card" id="sectionOrganization" data-section="organization">
+                    <div class="flux-card-header">
+                        <h3><i class="fas fa-building"></i> Organization</h3>
+                        <p>Your team and organization settings</p>
+                    </div>
+                    <div class="flux-card-body">
+                        <form id="orgForm" novalidate>
+                            <div class="flux-form-group">
+                                <label class="flux-form-label" for="orgName">Organization name</label>
+                                <input class="flux-form-input" type="text" id="orgName" value="TechCo">
+                            </div>
+                            <div class="flux-form-group">
+                                <label class="flux-form-label" for="orgRole">Your role</label>
+                                <select class="flux-form-select" id="orgRole">
+                                    <option value="client" selected>Client</option>
+                                    <option value="agency">Agency</option>
+                                </select>
+                            </div>
+                            <div class="flux-form-group">
+                                <label class="flux-form-label" for="orgTeamName">Team name</label>
+                                <input class="flux-form-input" type="text" id="orgTeamName" placeholder="e.g. Marketing Team">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="flux-card-footer">
+                        <button class="flux-btn flux-btn-primary" id="saveOrg">
+                            <i class="fas fa-check"></i> Save Organization
+                        </button>
+                    </div>
+                </section>
+
+                <!-- DANGER ZONE -->
+                <section class="account-section flux-card danger-zone" id="sectionDanger" data-section="danger">
+                    <div class="flux-card-header">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                    </div>
+                    <div class="flux-card-body">
+                        <div class="danger-item">
+                            <div class="danger-item-info">
+                                <h4>Export account data</h4>
+                                <p>Download all your feedback and settings</p>
+                            </div>
+                            <button class="flux-btn flux-btn-secondary flux-btn-sm" id="exportData">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                        <div class="danger-item">
+                            <div class="danger-item-info">
+                                <h4>Delete all data</h4>
+                                <p>Remove all feedback, projects and settings permanently</p>
+                            </div>
+                            <button class="flux-btn flux-btn-danger flux-btn-sm" id="deleteAllData">
+                                <i class="fas fa-trash"></i> Delete All
+                            </button>
+                        </div>
+                        <div class="danger-item">
+                            <div class="danger-item-info">
+                                <h4>Delete account</h4>
+                                <p>Permanently delete your Flux account</p>
+                            </div>
+                            <button class="flux-btn flux-btn-danger flux-btn-sm" id="deleteAccount">
+                                <i class="fas fa-user-times"></i> Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flux-toast-container" id="toastContainer"></div>
+<script src="js/ui/splash.js"></script>
+<script src="js/core/storage.js"></script>
+<script src="js/core/api.js"></script>
+<script src="js/ui/toast.js"></script>
+<script src="js/ui/nav.js"></script>
+<script src="js/ui/notifications.js"></script>
+<script src="js/pages/account.js"></script>
+</body>
+</html>

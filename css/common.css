@@ -1,0 +1,1150 @@
+/* ================================================
+   FLUX — COMMON STYLES (shared across all pages)
+   ================================================ */
+
+/* --------------------------------
+   CSS VARIABLES
+   -------------------------------- */
+:root {
+    --primary-50: #eef2ff;
+    --primary-100: #e0e7ff;
+    --primary-200: #c7d2fe;
+    --primary-300: #a5b4fc;
+    --primary-400: #818cf8;
+    --primary-500: #6366f1;
+    --primary-600: #4f46e5;
+    --primary-700: #4338ca;
+    --primary-800: #3730a3;
+    --primary-900: #312e81;
+
+    --emerald-50: #ecfdf5;
+    --emerald-100: #d1fae5;
+    --emerald-200: #a7f3d0;
+    --emerald-300: #6ee7b7;
+    --emerald-400: #34d399;
+    --emerald-500: #10b981;
+    --emerald-600: #059669;
+
+    --amber-50: #fffbeb;
+    --amber-100: #fef3c7;
+    --amber-200: #fde68a;
+    --amber-400: #fbbf24;
+    --amber-500: #f59e0b;
+    --amber-600: #d97706;
+
+    --red-50: #fef2f2;
+    --red-100: #fee2e2;
+    --red-200: #fecaca;
+    --red-400: #f87171;
+    --red-500: #ef4444;
+    --red-600: #dc2626;
+
+    --blue-50: #eff6ff;
+    --blue-100: #dbeafe;
+    --blue-400: #60a5fa;
+    --blue-500: #3b82f6;
+    --blue-600: #2563eb;
+
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+
+    --header-height: 64px;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------
+   RESET
+   -------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --------------------------------
+   SCROLLBAR
+   -------------------------------- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gray-300);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-400);
+}
+
+/* --------------------------------
+   UTILITY
+   -------------------------------- */
+.hidden {
+    display: none !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* --------------------------------
+   SHARED NAV HEADER
+   -------------------------------- */
+.flux-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+    gap: 8px;
+    overflow: visible;
+}
+
+.flux-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.flux-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--primary-600);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.flux-logo:hover {
+    opacity: 0.85;
+}
+
+.flux-logo i {
+    font-size: 1.3rem;
+}
+
+.flux-logo small {
+    font-size: 0.7rem;
+    color: var(--gray-400);
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+/* Main navigation links */
+.flux-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.flux-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 10px;
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.flux-nav-link:hover {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.flux-nav-link.active {
+    background: var(--primary-50);
+    color: var(--primary-600);
+}
+
+.flux-nav-link i {
+    font-size: 0.82rem;
+    width: 14px;
+    text-align: center;
+}
+
+
+.flux-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+/* --------------------------------
+   NOTIFICATION BELL (shared)
+   -------------------------------- */
+.flux-notif-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.flux-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-200);
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-500);
+    transition: all var(--transition-fast);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.flux-icon-btn:hover {
+    background: var(--gray-50);
+    color: var(--gray-700);
+    border-color: var(--gray-300);
+}
+
+.flux-notif-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: var(--red-500);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+
+/* --------------------------------
+   NOTIFICATION DROPDOWN
+   -------------------------------- */
+.flux-notif-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: -8px;
+    width: 360px;
+    max-height: 480px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    z-index: 300;
+    overflow: hidden;
+    animation: fluxDropdownIn 0.25s ease;
+}
+
+.flux-notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.flux-notif-header h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.flux-notif-mark-all {
+    background: none;
+    border: none;
+    color: var(--primary-500);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.flux-notif-mark-all:hover {
+    text-decoration: underline;
+}
+
+.flux-notif-list {
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.flux-notif-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-50);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.flux-notif-item:hover {
+    background: var(--gray-50);
+}
+
+.flux-notif-item.unread {
+    background: var(--primary-50);
+}
+
+.flux-notif-item.unread:hover {
+    background: var(--primary-100);
+}
+
+.flux-notif-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+}
+
+.flux-notif-icon.success {
+    background: var(--emerald-100);
+    color: var(--emerald-600);
+}
+
+.flux-notif-icon.warning {
+    background: var(--amber-100);
+    color: var(--amber-600);
+}
+
+.flux-notif-icon.info {
+    background: var(--blue-100);
+    color: var(--blue-600);
+}
+
+.flux-notif-icon.danger {
+    background: var(--red-100);
+    color: var(--red-600);
+}
+
+.flux-notif-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.flux-notif-text {
+    font-size: 0.83rem;
+    color: var(--gray-700);
+    line-height: 1.4;
+}
+
+.flux-notif-time {
+    font-size: 0.72rem;
+    color: var(--gray-400);
+    margin-top: 2px;
+}
+
+.flux-notif-empty {
+    padding: 40px 16px;
+    text-align: center;
+    color: var(--gray-400);
+}
+
+.flux-notif-empty i {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* --------------------------------
+   USER MENU
+   -------------------------------- */
+.flux-user-menu {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.flux-user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 8px 3px 3px;
+    border: 1px solid var(--gray-200);
+    border-radius: 50px;
+    background: white;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.flux-user-btn:hover {
+    border-color: var(--gray-300);
+    background: var(--gray-50);
+}
+
+.flux-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--primary-100);
+    color: var(--primary-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.flux-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.flux-user-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.flux-user-chevron {
+    font-size: 0.6rem;
+    color: var(--gray-400);
+    flex-shrink: 0;
+}
+
+.flux-user-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    width: 220px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 300;
+    padding: 6px;
+    animation: fluxDropdownIn 0.2s ease;
+}
+
+.flux-user-dropdown-header {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--gray-100);
+    margin-bottom: 4px;
+}
+
+.flux-user-dropdown-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.flux-user-dropdown-email {
+    font-size: 0.72rem;
+    color: var(--gray-400);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.flux-user-dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.83rem;
+    color: var(--gray-600);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+}
+
+.flux-user-dropdown-link:hover {
+    background: var(--gray-100);
+    color: var(--gray-800);
+}
+
+.flux-user-dropdown-link.danger {
+    color: var(--red-500);
+}
+
+.flux-user-dropdown-link.danger:hover {
+    background: var(--red-50);
+    color: var(--red-600);
+}
+
+.flux-user-dropdown-link i {
+    width: 16px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.flux-user-dropdown-divider {
+    height: 1px;
+    background: var(--gray-100);
+    margin: 4px 0;
+}
+
+/* --------------------------------
+   SHARED BUTTONS
+   -------------------------------- */
+.flux-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.flux-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.flux-btn-primary {
+    background: var(--primary-600);
+    color: white;
+}
+
+.flux-btn-primary:hover:not(:disabled) {
+    background: var(--primary-700);
+}
+
+.flux-btn-secondary {
+    background: white;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+}
+
+.flux-btn-secondary:hover:not(:disabled) {
+    background: var(--gray-50);
+    border-color: var(--gray-300);
+}
+
+.flux-btn-danger {
+    background: var(--red-50);
+    color: var(--red-600);
+    border: 1px solid var(--red-200);
+}
+
+.flux-btn-danger:hover:not(:disabled) {
+    background: var(--red-100);
+}
+
+.flux-btn-sm {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+.flux-btn-lg {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+}
+
+.flux-btn-block {
+    width: 100%;
+}
+
+/* --------------------------------
+   SHARED FORM STYLES
+   -------------------------------- */
+.flux-form-group {
+    margin-bottom: 20px;
+}
+
+.flux-form-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    margin-bottom: 6px;
+}
+
+.flux-form-label .required {
+    color: var(--red-500);
+}
+
+.flux-form-input,
+.flux-form-select,
+.flux-form-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+    transition: all var(--transition-fast);
+    background: white;
+    color: var(--gray-800);
+}
+
+.flux-form-input:focus,
+.flux-form-select:focus,
+.flux-form-textarea:focus {
+    border-color: var(--primary-400);
+    box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+.flux-form-input.error,
+.flux-form-textarea.error {
+    border-color: var(--red-400);
+    box-shadow: 0 0 0 3px var(--red-100);
+}
+
+.flux-form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.flux-form-hint {
+    font-size: 0.72rem;
+    color: var(--gray-400);
+    margin-top: 4px;
+}
+
+.flux-form-error {
+    font-size: 0.75rem;
+    color: var(--red-500);
+    margin-top: 4px;
+    display: none;
+}
+
+.flux-form-error.visible {
+    display: block;
+}
+
+.flux-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* --------------------------------
+   SHARED CARD CONTAINER
+   -------------------------------- */
+.flux-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.flux-card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.flux-card-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.flux-card-header h3 i {
+    color: var(--primary-500);
+}
+
+.flux-card-header p {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    margin-top: 2px;
+}
+
+.flux-card-body {
+    padding: 24px;
+}
+
+.flux-card-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--gray-100);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* --------------------------------
+   TOAST CONTAINER (shared)
+   -------------------------------- */
+.flux-toast-container {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.flux-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+    font-size: 0.85rem;
+    pointer-events: auto;
+    min-width: 280px;
+    max-width: 440px;
+    animation: fluxToastIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.flux-toast.removing {
+    animation: fluxToastOut 0.3s ease forwards;
+}
+
+.flux-toast-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.flux-toast.success .flux-toast-icon {
+    color: var(--emerald-500);
+}
+
+.flux-toast.error .flux-toast-icon {
+    color: var(--red-500);
+}
+
+.flux-toast.warning .flux-toast-icon {
+    color: var(--amber-500);
+}
+
+.flux-toast.info .flux-toast-icon {
+    color: var(--blue-500);
+}
+
+.flux-toast-msg {
+    flex: 1;
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+.flux-toast-close {
+    background: none;
+    border: none;
+    color: var(--gray-400);
+    cursor: pointer;
+    padding: 2px;
+    font-size: 0.8rem;
+}
+
+/* --------------------------------
+   PAGE CONTENT AREA
+   -------------------------------- */
+.flux-page {
+    margin-top: var(--header-height);
+    min-height: calc(100vh - var(--header-height));
+}
+
+.flux-page-header {
+    padding: 24px 32px 0;
+}
+
+.flux-page-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.flux-page-header p {
+    font-size: 0.88rem;
+    color: var(--gray-500);
+    margin-top: 4px;
+}
+
+.flux-page-content {
+    padding: 24px 32px;
+}
+
+/* --------------------------------
+   TOGGLE SWITCH
+   -------------------------------- */
+.flux-toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.flux-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.flux-toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--gray-300);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.flux-toggle-slider::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: transform var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}
+
+.flux-toggle input:checked+.flux-toggle-slider {
+    background: var(--primary-500);
+}
+
+.flux-toggle input:checked+.flux-toggle-slider::before {
+    transform: translateX(20px);
+}
+
+/* --------------------------------
+   ANIMATIONS
+   -------------------------------- */
+@keyframes fluxDropdownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fluxToastIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fluxToastOut {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+}
+
+@keyframes fluxFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fluxSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fluxShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+@keyframes fluxSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --------------------------------
+   RESPONSIVE NAV
+   -------------------------------- */
+@media (max-width: 768px) {
+    .flux-header {
+        padding: 0 12px;
+    }
+
+    .flux-nav {
+        display: none;
+    }
+
+    .flux-user-name {
+        display: none;
+    }
+
+    .flux-page-header {
+        padding: 16px;
+    }
+
+    .flux-page-content {
+        padding: 16px;
+    }
+
+    .flux-form-row {
+        grid-template-columns: 1fr;
+    }
+}
+/* ================================================
+   SPLASH / LOADING SCREEN
+   ================================================ */
+.flux-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.flux-splash.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.flux-splash-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-600);
+    margin-bottom: 24px;
+    animation: splashPulse 1.5s ease infinite;
+}
+
+.flux-splash-logo i {
+    font-size: 2.4rem;
+    animation: splashBolt 1.5s ease infinite;
+}
+
+.flux-splash-bar {
+    width: 200px;
+    height: 4px;
+    background: var(--gray-200);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.flux-splash-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-500), #7c3aed, var(--primary-500));
+    background-size: 200% 100%;
+    border-radius: 2px;
+    animation: splashLoad 1.2s ease forwards, splashShimmer 1s linear infinite;
+}
+
+.flux-splash-text {
+    font-size: 0.82rem;
+    color: var(--gray-400);
+    font-weight: 500;
+}
+
+@keyframes splashBolt {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+@keyframes splashPulse {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@keyframes splashLoad {
+    0% { width: 0%; }
+    30% { width: 40%; }
+    60% { width: 70%; }
+    100% { width: 100%; }
+}
+
+@keyframes splashShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+/* ================================================
+   EMPTY STATES — Shared across all pages
+   ================================================ */
+.flux-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+    animation: fluxFadeIn 0.5s ease;
+}
+
+.flux-empty-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--gray-300);
+    margin-bottom: 20px;
+}
+
+.flux-empty-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    margin-bottom: 8px;
+}
+
+.flux-empty-text {
+    font-size: 0.88rem;
+    color: var(--gray-400);
+    max-width: 360px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.flux-empty-action {
+    margin-top: 4px;
+}
+
+/* Specific empty state variations */
+.flux-empty-state.compact {
+    padding: 30px 16px;
+}
+
+.flux-empty-state.compact .flux-empty-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.flux-empty-state.compact .flux-empty-title {
+    font-size: 0.92rem;
+}
+
+.flux-empty-state.compact .flux-empty-text {
+    font-size: 0.8rem;
+}

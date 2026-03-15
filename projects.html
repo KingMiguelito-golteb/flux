@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux — Projects</title>
+    <meta name="description" content="Manage your feedback projects in Flux. Create, edit, and organize client projects.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Flux — Project Management">
+    <meta property="og:description" content="Organize client feedback by project with Flux.">
+    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/projects.png">
+    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/projects.html">
+    <meta property="og:type" content="website">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ===== SHARED HEADER ===== -->
+<header class="flux-header" id="appHeader">
+    <div class="flux-header-left">
+        <a href="dashboard.html" class="flux-logo">
+            <i class="fas fa-bolt"></i>
+            <span>Flux</span>
+        </a>
+        <nav class="flux-nav" id="mainNav">
+            <a href="dashboard.html" class="flux-nav-link">
+                <i class="fas fa-columns"></i> Board
+            </a>
+            <a href="projects.html" class="flux-nav-link active">
+                <i class="fas fa-folder-open"></i> Projects
+            </a>
+            <a href="account.html" class="flux-nav-link">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </div>
+    <div class="flux-header-right">
+        <div class="flux-notif-wrapper" id="notifWrapper">
+            <button class="flux-icon-btn" id="notifBell" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="flux-notif-badge hidden" id="notifBadge">0</span>
+            </button>
+            <div class="flux-notif-dropdown hidden" id="notifDropdown">
+                <div class="flux-notif-header">
+                    <h3>Notifications</h3>
+                    <button class="flux-notif-mark-all" id="markAllRead">Mark all read</button>
+                </div>
+                <div class="flux-notif-list" id="notifList"></div>
+                <div class="flux-notif-empty hidden" id="notifEmpty">
+                    <i class="fas fa-bell-slash"></i>
+                    <p>No notifications</p>
+                </div>
+            </div>
+        </div>
+        <div class="flux-user-menu" id="userMenu">
+            <button class="flux-user-btn" id="userMenuBtn">
+                <div class="flux-avatar" id="headerAvatar">SC</div>
+                <span class="flux-user-name" id="headerUserName">Sarah Chen</span>
+                <i class="fas fa-chevron-down flux-user-chevron"></i>
+            </button>
+            <div class="flux-user-dropdown hidden" id="userDropdown">
+                <div class="flux-user-dropdown-header">
+                    <div class="flux-user-dropdown-name" id="dropdownName">Sarah Chen</div>
+                    <div class="flux-user-dropdown-email" id="dropdownEmail">sarah@techco.com</div>
+                </div>
+                <a href="account.html" class="flux-user-dropdown-link">
+                    <i class="fas fa-user-circle"></i> My Account
+                </a>
+                <a href="projects.html" class="flux-user-dropdown-link">
+                    <i class="fas fa-folder-open"></i> Projects
+                </a>
+                <div class="flux-user-dropdown-divider"></div>
+                <button class="flux-user-dropdown-link danger" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ===== PAGE CONTENT ===== -->
+<div class="flux-page">
+    <div class="flux-page-header">
+        <h1>Projects</h1>
+        <p>Manage your feedback projects</p>
+    </div>
+
+    <div class="flux-page-content">
+        <div class="projects-header-bar">
+            <div class="projects-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="projectSearch" placeholder="Search projects…">
+            </div>
+            <button class="flux-btn flux-btn-primary" id="newProjectBtn">
+                <i class="fas fa-plus"></i> New Project
+            </button>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+            <!-- projects rendered by JS -->
+        </div>
+    </div>
+</div>
+
+<!-- ===== CREATE/EDIT PROJECT MODAL ===== -->
+<div class="project-modal-overlay hidden" id="projectModalOverlay">
+    <div class="project-modal">
+        <div class="project-modal-header">
+            <h2 id="projectModalTitle">New Project</h2>
+            <button class="project-modal-close" id="projectModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="project-modal-body">
+            <form id="projectForm" novalidate>
+                <div class="flux-form-group">
+                    <label class="flux-form-label" for="projectName">Project name <span class="required">*</span></label>
+                    <input class="flux-form-input" type="text" id="projectName" placeholder="e.g. Website Redesign" required>
+                </div>
+                <div class="flux-form-group">
+                    <label class="flux-form-label" for="projectClient">Client name</label>
+                    <input class="flux-form-input" type="text" id="projectClient" placeholder="e.g. TechCo">
+                </div>
+                <div class="flux-form-group">
+                    <label class="flux-form-label" for="projectDescription">Description</label>
+                    <textarea class="flux-form-textarea" id="projectDescription" rows="3" placeholder="Brief project description…"></textarea>
+                </div>
+                <div class="flux-form-group">
+                    <label class="flux-form-label">Color</label>
+                    <div class="color-picker" id="colorPicker">
+                        <div class="color-option c1 selected" data-color="1"></div>
+                        <div class="color-option c2" data-color="2"></div>
+                        <div class="color-option c3" data-color="3"></div>
+                        <div class="color-option c4" data-color="4"></div>
+                        <div class="color-option c5" data-color="5"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="project-modal-footer">
+            <button class="flux-btn flux-btn-secondary" id="projectModalCancel">Cancel</button>
+            <button class="flux-btn flux-btn-primary" id="projectModalSave">
+                <i class="fas fa-check"></i> <span id="projectModalSaveText">Create Project</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="flux-toast-container" id="toastContainer"></div>
+<script src="js/ui/splash.js"></script>
+<script src="js/core/storage.js"></script>
+<script src="js/core/api.js"></script>
+<script src="js/ui/toast.js"></script>
+<script src="js/ui/nav.js"></script>
+<script src="js/ui/notifications.js"></script>
+<script src="js/pages/projects.js"></script>
+</body>
+</html>

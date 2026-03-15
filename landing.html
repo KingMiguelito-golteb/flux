@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux — Streamline Client Feedback</title>
+    <meta name="description" content="Flux replaces scattered emails and messy spreadsheets with a clean Kanban workflow. Agencies collect, track, and resolve client feedback in one place.">
+    <meta name="author" content="KingMiguelito-golteb">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Flux — Client-Agency Feedback Portal">
+    <meta property="og:description" content="A production-style SaaS feedback management platform built entirely with vanilla JS, HTML, and CSS. Kanban boards, RBAC, threaded comments, analytics — zero dependencies.">
+    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
+    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Flux Feedback Portal">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Flux — Client-Agency Feedback Portal">
+    <meta name="twitter:description" content="SaaS feedback portal with Kanban, RBAC, analytics — built with zero dependencies.">
+    <meta name="twitter:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux — Streamline Client Feedback</title>
+    <meta name="description" content="Flux replaces scattered emails and messy spreadsheets with a clean Kanban workflow. Agencies collect, track, and resolve client feedback in one place.">
+    <meta name="author" content="KingMiguelito-golteb">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Flux — Client-Agency Feedback Portal">
+    <meta property="og:description" content="A production-style SaaS feedback management platform built entirely with vanilla JS, HTML, and CSS. Kanban boards, RBAC, threaded comments, analytics — zero dependencies.">
+    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
+    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Flux Feedback Portal">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Flux — Client-Agency Feedback Portal">
+    <meta name="twitter:description" content="SaaS feedback portal with Kanban, RBAC, analytics — built with zero dependencies.">
+    <meta name="twitter:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ===== LANDING NAV ===== -->
+<nav class="landing-nav">
+    <div class="landing-nav-inner">
+        <a href="landing.html" class="flux-logo">
+            <i class="fas fa-bolt"></i>
+            <span>Flux</span>
+        </a>
+        <div class="landing-nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#pricing">Pricing</a>
+        </div>
+        <div class="landing-nav-actions">
+            <a href="login.html" class="flux-btn flux-btn-secondary flux-btn-sm">Sign In</a>
+            <a href="signup.html" class="flux-btn flux-btn-primary flux-btn-sm">Get Started Free</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fas fa-sparkles"></i>
+            Now with real-time collaboration
+        </div>
+        <h1>Client feedback,<br><span class="hero-gradient">finally organized.</span></h1>
+        <p class="hero-sub">
+            Flux replaces scattered emails and messy spreadsheets with a clean 
+            Kanban workflow. Agencies collect, track, and resolve client feedback 
+            in one place.
+        </p>
+      <!-- In the hero section, update the buttons -->
+<div class="hero-actions">
+    <a href="signup.html" class="flux-btn flux-btn-primary flux-btn-lg">
+        <i class="fas fa-rocket"></i>
+        Create Free Account
+    </a>
+    <a href="login.html" class="flux-btn flux-btn-secondary flux-btn-lg">
+        <i class="fas fa-sign-in-alt"></i>
+        Sign In
+    </a>
+</div>
+<p class="hero-note">No credit card required · Set up in 30 seconds</p>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-browser">
+            <div class="browser-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="browser-content">
+                <div class="mini-board">
+                    <div class="mini-col">
+                        <div class="mini-col-header new-dot">New</div>
+                        <div class="mini-card shimmer"></div>
+                        <div class="mini-card shimmer"></div>
+                    </div>
+                    <div class="mini-col">
+                        <div class="mini-col-header review-dot">In Review</div>
+                        <div class="mini-card shimmer"></div>
+                    </div>
+                    <div class="mini-col">
+                        <div class="mini-col-header await-dot">Awaiting</div>
+                        <div class="mini-card shimmer"></div>
+                    </div>
+                    <div class="mini-col">
+                        <div class="mini-col-header done-dot">Approved</div>
+                        <div class="mini-card shimmer"></div>
+                        <div class="mini-card shimmer"></div>
+                        <div class="mini-card shimmer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== LOGOS / SOCIAL PROOF ===== -->
+<section class="social-proof">
+    <p>Trusted by agencies and creative teams worldwide</p>
+    <div class="logo-row">
+        <div class="fake-logo">AgencyCo</div>
+        <div class="fake-logo">DesignLab</div>
+        <div class="fake-logo">PixelForge</div>
+        <div class="fake-logo">BrandWorks</div>
+        <div class="fake-logo">CreativeHQ</div>
+    </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="features">
+    <div class="section-header">
+        <h2>Everything you need to manage feedback</h2>
+        <p>Built specifically for the agency-client workflow</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon" style="background:var(--primary-100);color:var(--primary-600);">
+                <i class="fas fa-columns"></i>
+            </div>
+            <h3>Kanban Board</h3>
+            <p>Drag feedback through your workflow — from submission to approval. Visual, intuitive, fast.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:var(--emerald-100);color:var(--emerald-600);">
+                <i class="fas fa-comments"></i>
+            </div>
+            <h3>Threaded Comments</h3>
+            <p>Discuss feedback in context. Mention teammates, track conversations, keep clients in the loop.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:var(--amber-100);color:var(--amber-600);">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h3>Role-Based Access</h3>
+            <p>Clients see what they need. Agencies get full control. Permissions enforced at every level.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:var(--blue-100);color:var(--blue-600);">
+                <i class="fas fa-paperclip"></i>
+            </div>
+            <h3>File Attachments</h3>
+            <p>Drag and drop screenshots, PDFs, and design files directly into feedback items.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:var(--red-100);color:var(--red-600);">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <h3>Task Conversion</h3>
+            <p>Convert approved feedback into actionable tasks with assignees and deadlines.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:var(--primary-100);color:var(--primary-600);">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h3>Smart Notifications</h3>
+            <p>Stay updated on status changes, new comments, and feedback submissions.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="how-it-works" id="how-it-works">
+    <div class="section-header">
+        <h2>How Flux works</h2>
+        <p>Three simple steps to organized feedback</p>
+    </div>
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Client submits feedback</h3>
+            <p>Clients use a clean form to describe issues, attach files, and set priority. No training needed.</p>
+        </div>
+        <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>Agency reviews & discusses</h3>
+            <p>Your team reviews feedback on the Kanban board, adds comments, and moves items through the workflow.</p>
+        </div>
+        <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Approve & convert to tasks</h3>
+            <p>Approved feedback becomes actionable tasks assigned to team members with deadlines.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing" id="pricing">
+    <div class="section-header">
+        <h2>Simple, transparent pricing</h2>
+        <p>Start free, upgrade when you're ready</p>
+    </div>
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <div class="pricing-name">Starter</div>
+            <div class="pricing-price"><span class="price-currency">$</span>0<span class="price-period">/mo</span></div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> 1 project</li>
+                <li><i class="fas fa-check"></i> 2 team members</li>
+                <li><i class="fas fa-check"></i> Basic Kanban board</li>
+                <li><i class="fas fa-check"></i> File uploads (50MB)</li>
+                <li><i class="fas fa-check"></i> Email notifications</li>
+            </ul>
+            <a href="signup.html" class="flux-btn flux-btn-secondary flux-btn-block">Get Started Free</a>
+        </div>
+        <div class="pricing-card popular">
+            <div class="pricing-popular-badge">Most Popular</div>
+            <div class="pricing-name">Professional</div>
+            <div class="pricing-price"><span class="price-currency">$</span>29<span class="price-period">/mo</span></div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> Unlimited projects</li>
+                <li><i class="fas fa-check"></i> 10 team members</li>
+                <li><i class="fas fa-check"></i> Advanced Kanban + filters</li>
+                <li><i class="fas fa-check"></i> File uploads (5GB)</li>
+                <li><i class="fas fa-check"></i> Priority support</li>
+                <li><i class="fas fa-check"></i> Task conversion</li>
+            </ul>
+           <a href="signup.html" class="flux-btn flux-btn-primary flux-btn-block">Create Account</a>
+        </div>
+        <div class="pricing-card">
+            <div class="pricing-name">Agency</div>
+            <div class="pricing-price"><span class="price-currency">$</span>79<span class="price-period">/mo</span></div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> Unlimited everything</li>
+                <li><i class="fas fa-check"></i> Unlimited team members</li>
+                <li><i class="fas fa-check"></i> White-label options</li>
+                <li><i class="fas fa-check"></i> API access</li>
+                <li><i class="fas fa-check"></i> Dedicated support</li>
+                <li><i class="fas fa-check"></i> Custom integrations</li>
+            </ul>
+            <a href="signup.html" class="flux-btn flux-btn-secondary flux-btn-block">Create Account</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="landing-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="flux-logo">
+                <i class="fas fa-bolt"></i>
+                <span>Flux</span>
+            </div>
+            <p>Streamline client feedback for agencies and creative teams.</p>
+        </div>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Product</h4>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#how-it-works">How It Works</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Careers</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Contact</a>
+                <a href="#">Status</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Flux. Built as a portfolio project by [Your Name].</p>
+    </div>
+</footer>
+
+</body>
+</html>

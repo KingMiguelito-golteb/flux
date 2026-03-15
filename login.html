@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux — Sign In</title>
+    <meta name="description" content="Sign in to your Flux feedback portal account.">
+
+    <meta property="og:title" content="Flux — Sign In">
+    <meta property="og:description" content="Sign in to manage your client feedback with Flux.">
+    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/login.png">
+    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/login.html">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="auth-page">
+    <!-- ===== LEFT BRAND PANEL ===== -->
+    <div class="auth-brand">
+        <div class="auth-brand-logo">
+            <i class="fas fa-bolt"></i>
+            <span>Flux</span>
+        </div>
+        <p class="auth-brand-tagline">
+            Streamline client feedback. Ship better work, faster.
+        </p>
+        <div class="auth-brand-features">
+            <div class="auth-brand-feature">
+                <i class="fas fa-columns"></i>
+                <span>Kanban feedback boards</span>
+            </div>
+            <div class="auth-brand-feature">
+                <i class="fas fa-comments"></i>
+                <span>Threaded comment threads</span>
+            </div>
+            <div class="auth-brand-feature">
+                <i class="fas fa-tasks"></i>
+                <span>Convert feedback to tasks</span>
+            </div>
+            <div class="auth-brand-feature">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>File attachments & previews</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== RIGHT FORM PANEL ===== -->
+    <div class="auth-form-panel">
+        <div class="auth-form-container">
+            <div class="auth-form-header">
+                <h1>Welcome back</h1>
+                <p>Don't have an account? <a href="signup.html">Create one free</a></p>
+            </div>
+
+            <button class="auth-social-btn" id="googleSignIn" type="button">
+                <i class="fab fa-google"></i>
+                Continue with Google
+            </button>
+
+            <div class="auth-divider">or sign in with email</div>
+
+            <form id="loginForm" novalidate>
+                <div class="flux-form-group">
+                    <label class="flux-form-label" for="loginEmail">
+                        Email <span class="required">*</span>
+                    </label>
+                    <input
+                        class="flux-form-input"
+                        type="email"
+                        id="loginEmail"
+                        placeholder="you@company.com"
+                        required
+                        autocomplete="email"
+                    >
+                    <div class="flux-form-error" id="loginEmailError">Please enter a valid email</div>
+                </div>
+
+                <div class="flux-form-group">
+                    <label class="flux-form-label" for="loginPassword">
+                        Password <span class="required">*</span>
+                    </label>
+                    <div class="password-input-wrapper">
+                        <input
+                            class="flux-form-input"
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <button type="button" class="password-toggle" id="loginPasswordToggle" aria-label="Show password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="flux-form-error" id="loginPasswordError">Password is required</div>
+                </div>
+
+                <div class="auth-form-footer">
+                    <label class="auth-checkbox">
+                        <input type="checkbox" id="rememberMe" checked>
+                        Remember me
+                    </label>
+                    <a href="#">Forgot password?</a>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="flux-btn flux-btn-primary flux-btn-lg flux-btn-block" id="loginSubmit">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                </div>
+            </form>
+
+            <!-- NEW: Friendly signup nudge instead of demo credentials -->
+            <div class="auth-signup-nudge" id="signupNudge">
+                <div class="nudge-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="nudge-text">
+                    <strong>New to Flux?</strong>
+                    <p>Create a free account in 30 seconds to explore the full platform.</p>
+                </div>
+                <a href="signup.html" class="flux-btn flux-btn-secondary flux-btn-sm">
+                    Sign Up
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast container -->
+<div class="flux-toast-container" id="toastContainer"></div>
+
+<script src="js/core/storage.js" defer></script>
+<script src="js/core/api.js" defer></script>
+<script src="js/ui/toast.js" defer></script>
+<script src="js/pages/login.js" defer></script>
+</body>
+</html>
