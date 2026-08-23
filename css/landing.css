@@ -57,6 +57,10 @@
     align-items: center;
 }
 
+.hero-content {
+    min-width: 0;
+}
+
 .hero-badge {
     display: inline-flex;
     align-items: center;

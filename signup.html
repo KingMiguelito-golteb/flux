@@ -10,9 +10,11 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Flux — Create Account">
     <meta property="og:description" content="Join Flux and streamline your agency's client feedback workflow.">
-    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
-    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/signup.html">
+    <meta property="og:image" content="https://flux1-portal.vercel.app/screenshots/dashboard.png">
+    <meta property="og:url" content="https://flux1-portal.vercel.app/signup">
     <meta property="og:type" content="website">
+
+    <link rel="canonical" href="https://flux1-portal.vercel.app/signup">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/common.css">
@@ -59,12 +61,6 @@
                 <p>Already have an account? <a href="login.html">Sign in</a></p>
             </div>
 
-            <button class="auth-social-btn" id="googleSignUp">
-                <i class="fab fa-google"></i>
-                Continue with Google
-            </button>
-
-            <div class="auth-divider">or sign up with email</div>
 
             <form id="signupForm" novalidate>
                 <div class="flux-form-row">
@@ -172,7 +168,7 @@
                 <div style="margin-top: 8px;">
                     <label class="auth-checkbox">
                         <input type="checkbox" id="termsAgree" required>
-                        I agree to the <a href="#" style="color: var(--primary-600);">Terms of Service</a> and <a href="#" style="color: var(--primary-600);">Privacy Policy</a>
+                        I agree to the <button type="button" class="auth-link-btn" data-legal="terms">Terms of Service</button> and <button type="button" class="auth-link-btn" data-legal="privacy">Privacy Policy</button>
                     </label>
                 </div>
 
@@ -189,39 +185,10 @@
 
 <div class="flux-toast-container" id="toastContainer"></div>
 
-<script src="js/core/storage.js"></script>
-<script src="js/core/api.js"></script>
-<script src="js/ui/toast.js"></script>
-<script src="js/pages/signup.js"></script>
+<script src="js/core/storage.js" defer></script>
+<script src="js/core/api.js" defer></script>
+<script src="js/ui/toast.js" defer></script>
+<script src="js/pages/signup.js" defer></script>
 
-<style>
-    /* Role selector cards */
-    .auth-role-card {
-        cursor: pointer;
-        flex: 1;
-    }
-    .auth-role-card input { display: none; }
-    .auth-role-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 12px;
-        border: 2px solid var(--gray-200);
-        border-radius: var(--radius-md);
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: var(--gray-500);
-        transition: all var(--transition-fast);
-    }
-    .auth-role-card input:checked + .auth-role-content {
-        border-color: var(--primary-500);
-        background: var(--primary-50);
-        color: var(--primary-600);
-    }
-    .auth-role-content:hover {
-        border-color: var(--gray-300);
-    }
-</style>
 </body>
 </html>

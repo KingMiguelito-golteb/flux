@@ -33,10 +33,49 @@
             // Scroll to section
             var target = document.getElementById('section' + capitalize(section));
             if (target) {
+                suppressSpyUntil = Date.now() + 900; // don't fight the smooth scroll
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
+
+    // ---- Scroll spy: highlight the section currently in view ----
+    var suppressSpyUntil = 0;
+
+    if ('IntersectionObserver' in window) {
+        var sections = document.querySelectorAll('.account-section[data-section]');
+        var visible = {};
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                visible[entry.target.dataset.section] = entry.isIntersecting
+                    ? entry.intersectionRatio
+                    : 0;
+            });
+
+            if (Date.now() < suppressSpyUntil) return;
+
+            // Pick the most-visible section
+            var best = null;
+            var bestRatio = 0;
+            Object.keys(visible).forEach(function (key) {
+                if (visible[key] > bestRatio) {
+                    bestRatio = visible[key];
+                    best = key;
+                }
+            });
+            if (!best) return;
+
+            sidebarLinks.forEach(function (l) {
+                l.classList.toggle('active', l.dataset.section === best);
+            });
+        }, {
+            rootMargin: '-30% 0px -50% 0px',
+            threshold: [0, 0.25, 0.5, 0.75, 1]
+        });
+
+        sections.forEach(function (s) { observer.observe(s); });
+    }
 
     // ==================================
     // POPULATE FORM FROM STORED DATA
@@ -241,14 +280,33 @@
     var saveOrg = document.getElementById('saveOrg');
     if (saveOrg) {
         saveOrg.addEventListener('click', function () {
+            var requestedRole = document.getElementById('orgRole').value;
             var updates = {
                 org: document.getElementById('orgName').value.trim(),
-                role: document.getElementById('orgRole').value,
+                role: requestedRole,
                 teamName: document.getElementById('orgTeamName').value.trim()
             };
 
-            FluxAPI.updateUser(session.id, updates).then(function () {
-                FluxToast.show('Organization settings saved', 'success');
+            FluxAPI.updateUser(session.id, updates).then(function (res) {
+                if (!res.ok) {
+                    FluxToast.show(res.error || 'Could not save organization settings', 'error');
+                    return;
+                }
+
+                // RBAC: the API silently refuses client -> agency escalation.
+                // Surface that to the user instead of pretending it saved.
+                if (res.data.role !== requestedRole) {
+                    document.getElementById('orgRole').value = res.data.role;
+                    FluxToast.show(
+                        'Settings saved, but role changes to "Agency" are not permitted from a client account.',
+                        'warning'
+                    );
+                } else {
+                    FluxToast.show('Organization settings saved', 'success');
+                }
+
+                // Keep the in-memory session in sync so later saves use fresh data
+                session = FluxAPI.getSession() || session;
                 FluxNav.init();
             });
         });

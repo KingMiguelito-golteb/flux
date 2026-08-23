@@ -10,9 +10,12 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Flux — Account Settings">
     <meta property="og:description" content="Manage your profile, security, and preferences in Flux.">
-    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/account.png">
-    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/account.html">
+    <meta property="og:image" content="https://flux1-portal.vercel.app/screenshots/account.png">
+    <meta property="og:url" content="https://flux1-portal.vercel.app/account">
     <meta property="og:type" content="website">
+
+    <link rel="canonical" href="https://flux1-portal.vercel.app/account">
+    <meta name="robots" content="noindex, nofollow">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/common.css">
@@ -20,6 +23,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+<a href="#mainContent" class="skip-link">Skip to main content</a>
 
 <!-- ===== SHARED HEADER ===== -->
 <header class="flux-header" id="appHeader">
@@ -43,14 +48,14 @@
     <div class="flux-header-right">
         <!-- Notification bell -->
         <div class="flux-notif-wrapper" id="notifWrapper">
-            <button class="flux-icon-btn" id="notifBell" title="Notifications">
+            <button class="flux-icon-btn" id="notifBell" type="button" title="Notifications" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell"></i>
                 <span class="flux-notif-badge hidden" id="notifBadge">0</span>
             </button>
             <div class="flux-notif-dropdown hidden" id="notifDropdown">
                 <div class="flux-notif-header">
                     <h3>Notifications</h3>
-                    <button class="flux-notif-mark-all" id="markAllRead">Mark all read</button>
+                    <button class="flux-notif-mark-all" id="markAllRead" type="button">Mark all read</button>
                 </div>
                 <div class="flux-notif-list" id="notifList"></div>
                 <div class="flux-notif-empty hidden" id="notifEmpty">
@@ -61,7 +66,7 @@
         </div>
         <!-- User menu -->
         <div class="flux-user-menu" id="userMenu">
-            <button class="flux-user-btn" id="userMenuBtn">
+            <button class="flux-user-btn" id="userMenuBtn" type="button" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
                 <div class="flux-avatar" id="headerAvatar">SC</div>
                 <span class="flux-user-name" id="headerUserName">Sarah Chen</span>
                 <i class="fas fa-chevron-down flux-user-chevron"></i>
@@ -78,7 +83,7 @@
                     <i class="fas fa-folder-open"></i> Projects
                 </a>
                 <div class="flux-user-dropdown-divider"></div>
-                <button class="flux-user-dropdown-link danger" id="logoutBtn">
+                <button class="flux-user-dropdown-link danger" id="logoutBtn" type="button">
                     <i class="fas fa-sign-out-alt"></i> Sign Out
                 </button>
             </div>
@@ -87,7 +92,7 @@
 </header>
 
 <!-- ===== PAGE CONTENT ===== -->
-<div class="flux-page">
+<main class="flux-page" id="mainContent">
     <div class="flux-page-header">
         <h1>Account Settings</h1>
         <p>Manage your profile, security, and preferences</p>
@@ -98,19 +103,19 @@
             <!-- Sidebar -->
             <aside class="account-sidebar">
                 <nav class="account-sidebar-nav">
-                    <button class="account-sidebar-link active" data-section="profile">
+                    <button type="button" class="account-sidebar-link active" data-section="profile">
                         <i class="fas fa-user"></i> Profile
                     </button>
-                    <button class="account-sidebar-link" data-section="security">
+                    <button type="button" class="account-sidebar-link" data-section="security">
                         <i class="fas fa-shield-alt"></i> Security
                     </button>
-                    <button class="account-sidebar-link" data-section="notifications">
+                    <button type="button" class="account-sidebar-link" data-section="notifications">
                         <i class="fas fa-bell"></i> Notifications
                     </button>
-                    <button class="account-sidebar-link" data-section="organization">
+                    <button type="button" class="account-sidebar-link" data-section="organization">
                         <i class="fas fa-building"></i> Organization
                     </button>
-                    <button class="account-sidebar-link" data-section="danger">
+                    <button type="button" class="account-sidebar-link" data-section="danger">
                         <i class="fas fa-exclamation-triangle"></i> Danger Zone
                     </button>
                 </nav>
@@ -352,15 +357,15 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <div class="flux-toast-container" id="toastContainer"></div>
 <script src="js/ui/splash.js"></script>
-<script src="js/core/storage.js"></script>
-<script src="js/core/api.js"></script>
-<script src="js/ui/toast.js"></script>
-<script src="js/ui/nav.js"></script>
-<script src="js/ui/notifications.js"></script>
-<script src="js/pages/account.js"></script>
+<script src="js/core/storage.js" defer></script>
+<script src="js/core/api.js" defer></script>
+<script src="js/ui/toast.js" defer></script>
+<script src="js/ui/nav.js" defer></script>
+<script src="js/ui/notifications.js" defer></script>
+<script src="js/pages/account.js" defer></script>
 </body>
 </html>

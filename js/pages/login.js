@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var emailError = document.getElementById('loginEmailError');
     var passwordError = document.getElementById('loginPasswordError');
     var passwordToggle = document.getElementById('loginPasswordToggle');
-    var googleBtn = document.getElementById('googleSignIn');
     var submitBtn = document.getElementById('loginSubmit');
 
     if (!form || !emailInput || !passwordInput) {
@@ -89,12 +88,46 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ============================================
-    // GOOGLE SIGN-IN (placeholder)
+    // DEMO ACCOUNTS — one-click exploration
     // ============================================
-    if (googleBtn) {
-        googleBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            FluxToast.show('Google sign-in is not available in this version. Please use email and password.', 'info');
+    var demoBtns = document.querySelectorAll('[data-demo-role]');
+    demoBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            if (typeof FluxDemo === 'undefined') {
+                FluxToast.show('Demo module failed to load. Please sign up instead.', 'error');
+                return;
+            }
+
+            var role = btn.dataset.demoRole;
+
+            demoBtns.forEach(function (b) { b.disabled = true; });
+            btn.classList.add('loading');
+
+            FluxDemo.login(role).then(function (res) {
+                if (res.ok) {
+                    FluxToast.show('Signed in as ' + res.data.name + ' (' + role + ')', 'success');
+                    setTimeout(function () {
+                        window.location.href = 'dashboard.html';
+                    }, 600);
+                } else {
+                    FluxToast.show(res.error || 'Could not start demo session', 'error');
+                    demoBtns.forEach(function (b) { b.disabled = false; });
+                    btn.classList.remove('loading');
+                }
+            });
+        });
+    });
+
+    // ============================================
+    // FORGOT PASSWORD (demo build — no mail server)
+    // ============================================
+    var forgotBtn = document.getElementById('forgotPassword');
+    if (forgotBtn) {
+        forgotBtn.addEventListener('click', function () {
+            FluxToast.show(
+                'This demo has no mail server. Use a demo account above, or sign up for a new one.',
+                'info'
+            );
         });
     }
 

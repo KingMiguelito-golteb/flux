@@ -10,9 +10,12 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Flux — Feedback Dashboard">
     <meta property="og:description" content="Kanban-style feedback management with role-based access, threaded comments, and analytics.">
-    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/dashboard.png">
-    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/dashboard.html">
+    <meta property="og:image" content="https://flux1-portal.vercel.app/screenshots/dashboard.png">
+    <meta property="og:url" content="https://flux1-portal.vercel.app/dashboard">
     <meta property="og:type" content="website">
+
+    <link rel="canonical" href="https://flux1-portal.vercel.app/dashboard">
+    <meta name="robots" content="noindex, nofollow">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/common.css">
@@ -20,6 +23,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+<a href="#kanbanWrapper" class="skip-link">Skip to main content</a>
 
 <!-- ===== HEADER ===== -->
 <header class="flux-header" id="appHeader">
@@ -104,14 +109,14 @@
 
         <!-- Notification bell -->
         <div class="flux-notif-wrapper" id="notifWrapper">
-            <button class="flux-icon-btn" id="notifBell" title="Notifications">
+            <button class="flux-icon-btn" id="notifBell" type="button" title="Notifications" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell"></i>
                 <span class="flux-notif-badge hidden" id="notifBadge">0</span>
             </button>
             <div class="flux-notif-dropdown hidden" id="notifDropdown">
                 <div class="flux-notif-header">
                     <h3>Notifications</h3>
-                    <button class="flux-notif-mark-all" id="markAllRead">Mark all read</button>
+                    <button class="flux-notif-mark-all" id="markAllRead" type="button">Mark all read</button>
                 </div>
                 <div class="flux-notif-list" id="notifList"></div>
                 <div class="flux-notif-empty hidden" id="notifEmpty">
@@ -133,7 +138,7 @@
 
         <!-- User menu -->
         <div class="flux-user-menu" id="userMenu">
-            <button class="flux-user-btn" id="userMenuBtn">
+            <button class="flux-user-btn" id="userMenuBtn" type="button" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
                 <div class="flux-avatar" id="headerAvatar">SC</div>
                 <span class="flux-user-name" id="headerUserName">Sarah Chen</span>
                 <i class="fas fa-chevron-down flux-user-chevron"></i>
@@ -151,7 +156,7 @@
                     <i class="fas fa-folder-open"></i> Projects
                 </a>
                 <div class="flux-user-dropdown-divider"></div>
-                <button class="flux-user-dropdown-link danger" id="logoutBtn">
+                <button class="flux-user-dropdown-link danger" id="logoutBtn" type="button">
                     <i class="fas fa-sign-out-alt"></i> Sign Out
                 </button>
             </div>
@@ -294,7 +299,7 @@
 </main>
 
 <!-- FAB — Submit feedback (available to BOTH roles) -->
-<button class="fab" id="fabNewFeedback" title="Submit new feedback (N)"><i class="fas fa-plus"></i></button>
+<button class="fab" id="fabNewFeedback" type="button" title="Submit new feedback (N)" aria-label="Submit new feedback"><i class="fas fa-plus"></i></button>
 
 <!-- ===== MODAL: Submit Feedback ===== -->
 <div class="modal-overlay hidden" id="modalSubmitFeedback">

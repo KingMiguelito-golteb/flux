@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /projects
+Disallow: /account
+
+Sitemap: https://flux1-portal.vercel.app/sitemap.xml

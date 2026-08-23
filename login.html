@@ -9,9 +9,11 @@
 
     <meta property="og:title" content="Flux — Sign In">
     <meta property="og:description" content="Sign in to manage your client feedback with Flux.">
-    <meta property="og:image" content="https://kingmiguelito-golteb.github.io/flux/screenshots/login.png">
-    <meta property="og:url" content="https://kingmiguelito-golteb.github.io/flux/login.html">
+    <meta property="og:image" content="https://flux1-portal.vercel.app/screenshots/login.png">
+    <meta property="og:url" content="https://flux1-portal.vercel.app/login">
     <meta property="og:type" content="website">
+
+    <link rel="canonical" href="https://flux1-portal.vercel.app/login">
 
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/auth.css">
@@ -57,10 +59,22 @@
                 <p>Don't have an account? <a href="signup.html">Create one free</a></p>
             </div>
 
-            <button class="auth-social-btn" id="googleSignIn" type="button">
-                <i class="fab fa-google"></i>
-                Continue with Google
-            </button>
+            <div class="auth-demo-panel">
+                <div class="auth-demo-label">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                    Just exploring? Load a demo account
+                </div>
+                <div class="auth-demo-btns">
+                    <button type="button" class="auth-demo-btn" data-demo-role="client">
+                        <i class="fas fa-user"></i>
+                        <span><strong>Client</strong>Submit &amp; track feedback</span>
+                    </button>
+                    <button type="button" class="auth-demo-btn" data-demo-role="agency">
+                        <i class="fas fa-building"></i>
+                        <span><strong>Agency</strong>Full board &amp; admin access</span>
+                    </button>
+                </div>
+            </div>
 
             <div class="auth-divider">or sign in with email</div>
 
@@ -105,7 +119,7 @@
                         <input type="checkbox" id="rememberMe" checked>
                         Remember me
                     </label>
-                    <a href="#">Forgot password?</a>
+                    <button type="button" class="auth-link-btn" id="forgotPassword">Forgot password?</button>
                 </div>
 
                 <div style="margin-top: 24px;">
@@ -139,6 +153,7 @@
 <script src="js/core/storage.js" defer></script>
 <script src="js/core/api.js" defer></script>
 <script src="js/ui/toast.js" defer></script>
+<script src="js/core/demo.js" defer></script>
 <script src="js/pages/login.js" defer></script>
 </body>
 </html>

@@ -65,6 +65,26 @@ var FluxSplash = (function () {
     /* Auto-inject immediately */
     inject();
 
+    /* Failsafe: never trap the user behind the splash if a page
+       script throws before it gets a chance to call hide(). */
+    var FAILSAFE_MS = 5000;
+    setTimeout(function () {
+        if (document.getElementById('fluxSplash')) {
+            console.warn('[FluxSplash] Failsafe triggered — hiding splash after ' + FAILSAFE_MS + 'ms');
+            hide();
+        }
+    }, FAILSAFE_MS);
+
+    window.addEventListener('error', function () {
+        hide();
+    });
+
+    window.addEventListener('load', function () {
+        /* Belt and braces: once everything is loaded, the splash
+           should never outlive the page by more than a moment. */
+        setTimeout(hide, 1200);
+    });
+
     return {
         inject: inject,
         hide: hide
