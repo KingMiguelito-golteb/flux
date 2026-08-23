@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var strengthFill = document.getElementById('passwordStrengthFill');
     var strengthText = document.getElementById('passwordStrengthText');
     var termsAgree = document.getElementById('termsAgree');
-    var googleBtn = document.getElementById('googleSignUp');
     var submitBtn = document.getElementById('signupSubmit');
 
     console.log('[Signup] Step 3: DOM elements:');
@@ -98,14 +97,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ============================================
-    // GOOGLE PLACEHOLDER
+    // LEGAL LINKS (demo build — no legal pages)
     // ============================================
-    if (googleBtn) {
-        googleBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            FluxToast.show('Google sign-up is not available. Please use email.', 'info');
+    document.querySelectorAll('[data-legal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var what = btn.dataset.legal === 'terms' ? 'Terms of Service' : 'Privacy Policy';
+            FluxToast.show(
+                what + ': this is a portfolio demo — all data stays in your browser\'s localStorage.',
+                'info'
+            );
         });
-    }
+    });
 
     // ============================================
     // FORM SUBMIT

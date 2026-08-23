@@ -19,14 +19,26 @@ var FluxNotifications = (function () {
 
         bell.addEventListener('click', function (e) {
             e.stopPropagation();
-            dropdown.classList.toggle('hidden');
-            if (!dropdown.classList.contains('hidden')) {
+            var isOpen = !dropdown.classList.toggle('hidden');
+            bell.setAttribute('aria-expanded', String(isOpen));
+            if (isOpen) {
                 renderList();
             }
 
             // Close user dropdown
             var userDropdown = document.getElementById('userDropdown');
             if (userDropdown) userDropdown.classList.add('hidden');
+            var userBtn = document.getElementById('userMenuBtn');
+            if (userBtn) userBtn.setAttribute('aria-expanded', 'false');
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && !dropdown.classList.contains('hidden')) {
+                dropdown.classList.add('hidden');
+                bell.setAttribute('aria-expanded', 'false');
+                bell.focus();
+            }
         });
     }
 

@@ -719,9 +719,24 @@ body {
 .bulk-btn:hover {
     background: rgba(255,255,255,0.2);
 }
+
+.bulk-btn.approve:hover {
+    background: var(--emerald-500);
+    border-color: var(--emerald-500);
+}
+
+.bulk-btn.convert:hover {
+    background: var(--blue-500);
+    border-color: var(--blue-500);
+}
+
 .bulk-btn.delete:hover {
     background: var(--red-500);
     border-color: var(--red-500);
+}
+
+.bulk-btn.deselect:hover {
+    background: rgba(255,255,255,0.28);
 }
 
 /* --------------------------------
@@ -3228,44 +3243,6 @@ body.role-client .flux-nav-link[href="projects.html"] {
 
     .project-stat-value {
         font-size: 0.95rem;
-    }
-}
-
-/* ---- Account page on mobile ---- */
-@media (max-width: 768px) {
-    .account-layout {
-        grid-template-columns: 1fr !important;
-    }
-
-    .account-sidebar-nav {
-        flex-direction: row !important;
-        overflow-x: auto;
-        padding-bottom: 8px;
-        gap: 2px;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .account-sidebar-link {
-        white-space: nowrap;
-        padding: 8px 12px;
-        font-size: 0.78rem;
-    }
-
-    .account-avatar-area {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .notification-setting-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .danger-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
     }
 }
 

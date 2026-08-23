@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Page not found — Flux</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .nf-wrap {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 32px;
+        }
+
+        .nf-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            text-decoration: none;
+            margin-bottom: 40px;
+        }
+
+        .nf-logo i { color: var(--primary-500); }
+
+        .nf-code {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--primary-500), #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nf-wrap h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin: 16px 0 8px;
+        }
+
+        .nf-wrap p {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            max-width: 420px;
+            margin-bottom: 28px;
+        }
+
+        .nf-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nf-wrap">
+    <a href="landing.html" class="nf-logo">
+        <i class="fas fa-bolt"></i>
+        <span>Flux</span>
+    </a>
+
+    <div class="nf-code">404</div>
+    <h1>We couldn't find that page</h1>
+    <p>The link may be broken or the page may have been moved. Let's get you back on track.</p>
+
+    <div class="nf-actions">
+        <a href="landing.html" class="flux-btn flux-btn-secondary">
+            <i class="fas fa-home"></i> Go to homepage
+        </a>
+        <a href="dashboard.html" class="flux-btn flux-btn-primary" id="boardLink">
+            <i class="fas fa-columns"></i> Open my board
+        </a>
+    </div>
+</div>
+
+<script>
+    /* Send signed-out visitors to login rather than a guarded page */
+    (function () {
+        try {
+            if (!localStorage.getItem('flux_session')) {
+                document.getElementById('boardLink').setAttribute('href', 'login.html');
+            }
+        } catch (e) { /* localStorage unavailable — leave default */ }
+    })();
+</script>
+
+</body>
+</html>
