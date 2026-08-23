@@ -4,4 +4,4 @@ Disallow: /dashboard
 Disallow: /projects
 Disallow: /account
 
-Sitemap: https://flux-feedback-portal.vercel.app/sitemap.xml
+Sitemap: https://flux1-portal.vercel.app/sitemap.xml

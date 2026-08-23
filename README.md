@@ -12,7 +12,7 @@ Kanban workflow with role-based access control.
 
 ## 🔴 Live Demo
 
-**[→ View Live Demo](https://flux-feedback-portal.vercel.app/)**
+**[→ View Live Demo](https://flux1-portal.vercel.app/)**
 
 ### Try it instantly
 
@@ -199,7 +199,7 @@ After your first deploy, update the canonical and Open Graph URLs if your
 production domain differs from the one committed here:
 
 ```bash
-grep -rl "flux-feedback-portal.vercel.app" . --include=*.html --include=*.xml --include=*.txt
+grep -rl "flux1-portal.vercel.app" . --include=*.html --include=*.xml --include=*.txt
 ```
 
 ---
